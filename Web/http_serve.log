@@ -1,0 +1,18 @@
+[GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
+
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] POST   /root/login               --> Web/controller.Login (5 handlers)
+[GIN-debug] POST   /root/addUser             --> Web/controller.AddUser (5 handlers)
+[GIN-debug] POST   /root/active              --> Web/controller.Active (5 handlers)
+[GIN-debug] POST   /video/addVideo           --> Web/controller.AddVideos (5 handlers)
+[GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
+Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
+[GIN-debug] Listening and serving HTTP on 127.0.0.1:12345
+[GIN] 2022/07/24 - 21:32:29 | 200 |      132.28µs |       127.0.0.1 | POST     "/video/addVideo"
+[GIN-debug] error on parse multipart form array: no multipart boundary param in Content-Type
+[GIN] 2022/07/24 - 21:34:18 | 200 |    7.450296ms |       127.0.0.1 | POST     "/video/addVideo"
+[GIN] 2022/07/24 - 21:34:58 | 200 |     276.545µs |       127.0.0.1 | POST     "/video/addVideo"
+[GIN] 2022/07/24 - 21:35:43 | 200 |     297.662µs |       127.0.0.1 | POST     "/video/addVideo"
