@@ -5,16 +5,20 @@ import Footer from "./components/Footer/Footer";
 import { useEffect } from "react";
 import Store from "./store";
 import { getToken } from "./utils/Token";
-
 function App() {
 
   const { User } = Store()
   useEffect(() => {
-    const user = getToken("name")
-    if (user !== "") {
-      User.getActive(user)
+    const name = getToken("name")
+    if(name === null){
+      
+    }else {
+      User.getActive(name)
     }
+
   })
+
+
   return (
     <div className="App">
       <Header></Header>

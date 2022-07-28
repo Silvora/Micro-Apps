@@ -63,6 +63,9 @@ const routes = store.routes
 //console.log(store.$patch("addRouter"))
 store.addRouter()
 
+
+
+
 //console.log()
 const search = ref("")
 

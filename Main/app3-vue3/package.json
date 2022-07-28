@@ -13,6 +13,7 @@
     "element-plus": "^2.2.10",
     "path": "^0.12.7",
     "pinia": "^2.0.16",
+    "video.js": "^7.20.1",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0"
   },
@@ -44,7 +45,10 @@
     "parserOptions": {
       "parser": "babel-eslint"
     },
-    "rules": {}
+    "rules": {},
+    "globals": {
+      "__webpack_public_path__": true
+    }
   },
   "browserslist": [
     "> 1%",

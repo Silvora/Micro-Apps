@@ -11,7 +11,8 @@ class User {
         makeAutoObservable(this, {
             Loading: observable,
             UserInfo: observable,
-            LoginFrom: observable
+            LoginFrom: observable,
+            MicroLogin: observable
         }, { autoBind: true })
     }
 
@@ -25,6 +26,9 @@ class User {
 
     //弹窗状态
     LoginFrom = false
+
+    //是否可以进入子应用
+    MicroLogin = false
 
     //登录
     handleLogin(data) {
@@ -55,6 +59,7 @@ class User {
                 this.setUserToken(data)
                 this.setUserInfo(data)
                 this.showLoginFrom()
+                this.MicroLogin = true
             }
 
         })
@@ -63,16 +68,19 @@ class User {
     //添加用户
     handleAddUser(data) {
         // console.log(data)
+        const self = this
         addUser(data).then(res => {
             if (res.code === 200) {
                 let data = {
                     name: res.name,
                     token: res.token
                 }
-                this.setUserToken(data)
-                this.setUserInfo(data)
-                this.Loading = false
-                this.showLoginFrom()
+                self.setUserToken(data)
+                self.setUserInfo(data)
+                self.Loading = false
+                self.showLoginFrom()
+                self.MicroLogin = true
+                
             }
 
         })
@@ -109,13 +117,16 @@ class User {
             user
         }
         getActive(data).then(res => {
-            // console.log(res)
-            if (res.code === 403) {
+            //console.log(res)
+            if (res.code === 401) {
                 // message.success(res.msg);
+                self.MicroLogin = false
                 self.clearUser()
+                //self.showLoginFrom()
             }
             if (res.code === 200) {
-                this.UserInfo.name = res.name
+                self.UserInfo.name = res.name
+                self.MicroLogin = true
             }
         })
     }

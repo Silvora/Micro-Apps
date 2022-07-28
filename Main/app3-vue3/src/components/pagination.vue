@@ -1,5 +1,6 @@
 <template>
-        <el-pagination 
+        <div class="paginationDiv">
+            <el-pagination 
             background 
             layout="prev, pager, next, jumper" 
             :hide-on-single-page="true"
@@ -9,10 +10,11 @@
             :default-current-page="1"
             @current-change="handleCurrentChange"
         />
+        </div>
 </template>
 
 <script setup>
-import { reactive } from 'vue';
+import { reactive,defineEmits,defineProps, watchEffect } from 'vue';
 
 let Query = reactive({
     page: 1,
@@ -25,15 +27,18 @@ let Query = reactive({
 // }
 
 // defineProps<Props>()
+const data = defineProps({total: {type:Number}})
 
-//const emit = defineEmits(["onPage"])
+const emit = defineEmits(["onPage"])
 
-//let page = ref(1)
 const handleCurrentChange = (val)=>{
-   // Query.page = val
-    console.log(val)
-    //emit("onPage", val)
+    emit("onPage", val)
 }
+
+watchEffect(()=>{
+   //console.log(data.total)
+    Query.pageCount = Math.ceil(data.total/6)
+})
 
 // return {
 //     ...toRefs(Query)
@@ -41,10 +46,13 @@ const handleCurrentChange = (val)=>{
 
 </script>
 
-<style scoped>
-
-.el-pagination{
-   width: 480px;
+<style scoped lang="less">
+.paginationDiv{
+    width: 100%; 
+    display: flex; 
+    text-align: center;  
+}
+:deep(.el-pagination){
    margin: 0 auto;
 }
 </style>

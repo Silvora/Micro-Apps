@@ -3,7 +3,11 @@
     ref="ruleFormRef"
     :model="form" 
     label-width="120px"
-    label-position="top"
+    label-position="top" 
+    v-loading="loading"
+    element-loading-text="文件上传中："
+    element-loading-background="rgba(122, 122, 122, 0.8)"
+     
     >
 
     <el-form-item label="视频标题：">
@@ -32,7 +36,7 @@
                     class="upload-demo"
                     :show-file-list="false"
                     :before-upload="beforeUpDownload"
-                   
+                    :on-change="changeVideos"
                     :http-request="upDownloadVideos"
                     accept=".mp4, .webm, .ogg"
                 >
@@ -50,7 +54,7 @@
     </el-form-item>
 
 
- <el-form-item label="展示图片：">
+ <el-form-item label="展示图片：" >
 
   <el-upload
     v-model:file-list="fileList"
@@ -68,7 +72,7 @@
 
     <el-form-item>
       <el-button type="primary" size="large" class="btn" @click="onSubmit">上传</el-button>
-      <el-button class="btn" size="large" @click="resetForm(ruleFormRef)">重置</el-button>
+      <el-button class="btn" size="large" @click="resetForm">重置</el-button>
     </el-form-item>
     
     </el-form>
@@ -95,13 +99,15 @@
 <script setup>
 import { ElMessage } from 'element-plus';
 import { reactive,ref } from 'vue'
+import { useRouter } from 'vue-router';
 import { addVideo } from '../api/video';
 import { Routes } from "../store/routes"
+import { getToken } from '../utils/Token';
 // do not use same name with ref
 
 const fileList = []
 
-
+const router = useRouter()
 
 const store = Routes()
 const routes = store.routes
@@ -114,8 +120,10 @@ const form = reactive({
   // uploadImagesFile: new FormData()
 })
 const videos = ref(false)
-let uploadVideoFile =  new FormData()
-let uploadImagesFile =  new FormData()
+let imgFile = null
+let videoFile = null
+
+//let uploadImagesFile =  new FormData()
 let videosUrl = ref("")
 let imagesUrl = ref("")
 let videoFileUrl = ref("")
@@ -133,41 +141,67 @@ const onLookVideos = ()=>{
     }
 }
 
-const onSubmit = () => {
-  console.log('submit!')
-  let data = {
-    ...form,
-    imgFile: uploadImagesFile,
-    videoFile: uploadVideoFile
-  }
+let loading = ref(false)
 
-  addVideo(data).then(res=>{
-    console.log(res)
+const onSubmit = () => {
+loading.value = true
+const div = document.getElementsByClassName("el-loading-text")
+
+ let uploadFile =  new FormData()
+ let name = getToken("name")
+ uploadFile.append("admin", name)
+  uploadFile.append("name", form.name)
+  uploadFile.append("region", form.region)
+  uploadFile.append("desc", form.desc)
+  uploadFile.append("imgFile", imgFile.raw)
+  uploadFile.append("videoFile", videoFile.raw)
+
+  
+  // upDownloadImages()
+  // upDownloadVideos()
+  addVideo(uploadFile, (progressEvent) => {
+  let completeVal = Math.ceil((progressEvent.loaded / progressEvent.total) * 100 || 0)
+  div[0].innerHTML = '文件上传中：'+completeVal+'%'
+   
+}).then(res=>{
+    if(res.code == 200){
+      ElMessage.success(res.msg)
+      loading.value = false
+      resetForm()
+    }
   })
 }
-const resetForm = (formEl) => {
-  if (!formEl) return
-  console.log(formEl)
-  formEl.resetFields()
+
+
+const resetForm = () => {
+ //console.log(router)
+ router.go(0) 
 }
 
 
 
+const changeVideos = (file)=>{
+  videoFile = file
+}
+
 const beforeUpDownload = (file)=>{
-   // uploadVideoFile =  new FormData()
-    //console.log(file)
-    uploadVideoFile.append("file", file.raw)
-    uploadVideoFile.append("name", file.name)
+   
     videoFileUrl.value = file.name
     videosUrl.value = window.webkitURL.createObjectURL(file)
-
-    //console.log(uploadFile)
 }
 
 const upDownloadVideos = ()=>{
     
+  //    addVideo(uploadVideoFile).then(res=>{
+  //   console.log(res)
+  // })
+
 }
 const upDownloadImages= ()=>{
+   
+  //  addVideo(uploadImagesFile).then(res=>{
+  //   console.log(res)
+  // })
 
 }
 
@@ -178,22 +212,16 @@ const dialogVisible = ref(false)
 
 const changeImages = (file,fileList) => {
   //console.log(file )
-  if([...fileList].length >= 2){
+  if([...fileList].length > 1){
     fileList = fileList.splice(0,1)
   }
-  uploadImagesFile.append("file", file.raw)
-  uploadImagesFile.append("name", file.name)
-
+  imgFile = file
 }
 
 const handleRemoveImages = (file, fileList)=>{
   console.log(file, fileList)
 }
 
-// const handleRemove = (uploadFile, uploadFiles) => {
-//   console.log(uploadFile, uploadFiles)
-//   handleRemoveImages()
-// }
 
 const handlePictureCardPreview = (file) => {
   dialogImageUrl.value = file.url
@@ -201,9 +229,7 @@ const handlePictureCardPreview = (file) => {
   imagesUrl.value = file.name
 }
 
-// const handleDownload = (file) => {
-//   console.log(file)
-// }
+
 </script>
 
 

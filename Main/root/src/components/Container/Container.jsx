@@ -4,7 +4,7 @@ import React from "react";
 import other1 from "../../assets/img/svg/illustrations/illustration-5.svg";
 import other2 from "../../assets/img/svg/illustrations/illustration-6.svg";
 import other3 from "../../assets/img/svg/illustrations/illustration-7.svg";
-import { Link } from "react-router-dom";
+import App1 from "../Micro/app1"
 export default function Container() {
 	return (
 		<>
@@ -82,18 +82,6 @@ export default function Container() {
 
 			<section className='slice slice-lg bg-section-dark pt-5 pt-lg-8'>
 				<div className='shape-container shape-line shape-position-top shape-orientation-inverse'>
-					{/* <svg
-						width='2560px'
-						height='100px'
-						preserveAspectRatio='none'
-						x='0px'
-						y='0px'
-						viewBox='0 0 2560 100'
-						style={{ enableBackground: "new 0 0 2560 100" }}
-						className=''
-					>
-						<polygon points='2560 0 2560 100 0 100'></polygon>
-					</svg> */}
 				</div>
 				<div className='container position-relative zindex-100'>
 					<div className='col'>
@@ -111,116 +99,7 @@ export default function Container() {
 
 			<section className='slice pt-0'>
 				<div className='container position-relative zindex-100'>
-					<div className='row'>
-						<div className='col-xl-4 col-sm-6 mt-n7'>
-							<Link to='/app1'>
-								<div className='card'>
-									<div className='d-flex p-5'>
-										<div>
-											<span className='badge badge-warning badge-pill'>
-												<span>New</span>
-											</span>
-										</div>
-										<div className='pl-4'>
-											<h5 className='lh-130'>Listen to the nature</h5>
-											<p className='text-muted mb-0'>
-												Design made simple with a clean and smart HTML markup.
-											</p>
-										</div>
-									</div>
-								</div>
-							</Link>
-						</div>
-
-						<div className='col-xl-4 col-sm-6 mt-sm-n7'>
-							<Link to='/app2'>
-								<div className='card'>
-									<div className='d-flex p-5'>
-										<div>
-											<span className='badge badge-success badge-pill'>
-												<span>Tips</span>
-											</span>
-										</div>
-										<div className='pl-4'>
-											<h5 className='lh-130'>Rules not to follow</h5>
-											<p className='text-muted mb-0'>
-												Design made simple with a clean and smart HTML markup.
-											</p>
-										</div>
-									</div>
-								</div>
-							</Link>
-						</div>
-
-						<div className='col-xl-4 col-md-12 col-sm-6 mt-xl-n7'>
-							<Link to='/app3'>
-								<div className='card'>
-									<div className='d-flex p-5'>
-										<div>
-											<span className='badge badge-danger badge-pill'>
-												Update
-											</span>
-										</div>
-										<div className='pl-3'>
-											<h5 className='lh-130'>Beware the water</h5>
-											<p className='text-muted mb-0'>
-												Design made simple with a clean and smart HTML markup.
-											</p>
-										</div>
-									</div>
-								</div>
-							</Link>
-						</div>
-					</div>
-					<div className='row'>
-						<div className='col-xl-4 col-sm-6'>
-							<div className='card'>
-								<div className='d-flex p-5'>
-									<div>
-										<span className='badge badge-warning badge-pill'>New</span>
-									</div>
-									<div className='pl-4'>
-										<h5 className='lh-130'>Listen to the nature</h5>
-										<p className='text-muted mb-0'>
-											Design made simple with a clean and smart HTML markup.
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div className='col-xl-4 col-sm-6'>
-							<div className='card'>
-								<div className='d-flex p-5'>
-									<div>
-										<span className='badge badge-success badge-pill'>Tips</span>
-									</div>
-									<div className='pl-4'>
-										<h5 className='lh-130'>Rules not to follow</h5>
-										<p className='text-muted mb-0'>
-											Design made simple with a clean and smart HTML markup.
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div className='col-xl-4 col-md-12 col-sm-6'>
-							<div className='card'>
-								<div className='d-flex p-5'>
-									<div>
-										<span className='badge badge-danger badge-pill'>
-											Update
-										</span>
-									</div>
-									<div className='pl-3'>
-										<h5 className='lh-130'>Beware the water</h5>
-										<p className='text-muted mb-0'>
-											Design made simple with a clean and smart HTML markup.
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+					<App1></App1>
 				</div>
 			</section>
 		</>

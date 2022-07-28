@@ -3,8 +3,8 @@ import { message } from "antd"
 import { getToken } from "../utils/Token";
 
 const http = axios.create({
-    baseURL: "http://localhost:12345/root",
-    //baseURL: "http://api.757909.xyz/root",
+    //baseURL: "http://192.168.1.10:12345/root",
+    baseURL: "http://api.757909.xyz/root",
     timeout: 5000,
     validateStatus: function (status) {
         // eslint-disable-next-line default-case

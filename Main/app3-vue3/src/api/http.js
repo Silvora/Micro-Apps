@@ -3,8 +3,9 @@ import { ElMessage } from 'element-plus'
 import { getToken } from "../utils/Token";
 
 const http = axios.create({
-    //baseURL: "http://localhost:12345/root",
-    baseURL: "http://localhost:12345/video",
+    //baseURL: "http://localhost:12345/video",
+    baseURL: "http://api.757909.xyz/video",
+    //baseURL: "http://192.168.1.10:12345/video",
     timeout: 5000,
     validateStatus: function (status) {
         // eslint-disable-next-line default-case
@@ -46,7 +47,10 @@ http.interceptors.response.use(function (response) {
     //console.log(response.data)
     if (response.data.code === 401 || response.data.code === 403) {
         //console.log(response.data)
-        ElMessage.success(response.data.msg);
+        ElMessage.warning(response.data.msg);
+        if(response.data.code === 403){
+            window.open("http://www.757909.xyz")
+        }
     }
     return response.data;
 }, function (error) {

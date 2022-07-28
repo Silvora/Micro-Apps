@@ -5,8 +5,9 @@ function resolve(dir) {
 }
 module.exports = {
     //publicPath: "//localhost:3003",
+    publicPath: "/app3/",
     devServer: {
-        port: 3003,
+        //port: 3003,
         headers: {
             'Access-Control-Allow-Origin': '*',
         },

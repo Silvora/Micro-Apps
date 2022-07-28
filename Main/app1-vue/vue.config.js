@@ -1,8 +1,9 @@
 const { name } = require('./package');
 module.exports = {
-    publicPath: "/app1/",
+    publicPath: "//localhost:3001",
+    //publicPath: "/app1/",
     devServer: {
-        //port: 3001,
+        port: 3001,
         headers: {
             'Access-Control-Allow-Origin': '*',
         },

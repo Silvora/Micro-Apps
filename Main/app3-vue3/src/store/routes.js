@@ -7,9 +7,9 @@ export const Routes = defineStore("routes", {
         return {
             routes: [
                 {
-                    path: "/video",
-                    name: "Video",
-                    component: () => import("@/components/videos.vue"),
+                    path: "/movie",
+                    name: "movie",
+                    component: () => import("@/views/Home.vue"),
                     meta: {
                         icon: "Menu",
                         title: "电影",
@@ -18,7 +18,7 @@ export const Routes = defineStore("routes", {
                 {
                     path: "/music",
                     name: "Music",
-                    component: () => import("@/components/videos.vue"),
+                    component: () => import("@/views/Home.vue"),
                     meta: {
                         icon: "Document",
                         title: "音乐",
@@ -27,7 +27,7 @@ export const Routes = defineStore("routes", {
                 {
                     path: "/other",
                     name: "Other",
-                    component: () => import("@/components/videos.vue"),
+                    component: () => import("@/views/Home.vue"),
                     meta: {
                         icon: "Setting",
                         title: "其它",

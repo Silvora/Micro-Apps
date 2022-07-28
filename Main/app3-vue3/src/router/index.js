@@ -38,6 +38,14 @@ const routes = [
     }
   },
   {
+    path: "/video/:id",
+    name: "Video",
+    component: () => import("@/views/Video.vue"),
+    meta: {
+      title: "视频",
+    }
+  },
+  {
     path: "/404",
     name: "Error",
     component: () => import("@/views/Error.vue"),
@@ -47,12 +55,14 @@ const routes = [
   }
 ]
 
-
+//const store = Routes()
+//console.log(Routes())
+//store.addRouter()
 
 
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory(window.__POWERED_BY_QIANKUN__ ? "/app3" : "/"),
   scrollBehavior: (to, from, savedPosition) => {
     if (savedPosition) {
       return savedPosition
@@ -66,14 +76,13 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  console.log(to, from)
   document.title = to.meta.title
   next()
 })
 
-router.afterEach((to, from) => {
-  console.log(to, from)
-})
+// router.afterEach((to, from) => {
+//  console.log(to, from)
+// })
 
 
 export default router;

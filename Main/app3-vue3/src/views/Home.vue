@@ -1,62 +1,87 @@
 <template>
     <div class="home">
-        <div class="title">aaaa</div>
+        <div class="title">{{name}}</div>
         <div class="video">
-            <el-row :gutter="40">
-            <el-col :span="8"><el-card shadow="hover"> 
-                 <el-image :src="src" />
-                <div class="userInfo">
-                   <div><el-icon><User /></el-icon><span>1212121</span></div>
-                   <div><el-icon><AlarmClock /></el-icon><span>20.01.12</span></div>
-                   <div><el-icon><View /></el-icon><span>1.3k</span></div>
-                   <div><el-icon><Star /></el-icon><span>4.5k</span></div>
-                </div>
-                <div class="videoTitle">
-                    年底薩德薩俄方速度好2v3jh21vdsadsadsadasd3j12h3vj213vdsadsadas
-                </div>
-                </el-card></el-col>
-            <el-col :span="8"><el-card shadow="hover"> Never </el-card></el-col>
-            <el-col :span="8"><el-card shadow="hover"> Never </el-card></el-col>
-        </el-row>
-
-        <el-row :gutter="40">
-            <el-col :span="8"><el-card shadow="hover"> 
-                 <el-image :src="src" />
-                <div class="userInfo">
-                   <div><el-icon><User /></el-icon><span>1212121</span></div>
-                   <div><el-icon><AlarmClock /></el-icon><span>20.01.12</span></div>
-                   <div><el-icon><View /></el-icon><span>1.3k</span></div>
-                   <div><el-icon><Star /></el-icon><span>4.5k</span></div>
-                </div>
-                <div class="videoTitle">
-                    年底薩德薩俄方速度好2v3jh21vdsadsadsadasd3j12h3vj213vdsadsadas
-                </div>
-                </el-card></el-col>
-            <el-col :span="8"><el-card shadow="hover"> Never </el-card></el-col>
-            <el-col :span="8"><el-card shadow="hover"> Never </el-card></el-col>
+            <el-row :gutter="20">
+            <el-col :span="8" v-for="item in videoList" :key="item.id">
+                <router-link :to="'/video/'+ item.id">
+                <el-card shadow="hover"> 
+                    <el-image :src="urlData + item.imgUrl" />
+                    <div class="userInfo">
+                    <div><el-icon><User /></el-icon><span>{{item.admin}}</span></div>
+                    <div><el-icon><View /></el-icon><span>1.3k</span></div>
+                    <div><el-icon><Star /></el-icon><span>4.5k</span></div>
+                    </div>
+                    <div class="videoTitle">
+                        {{item.introduce}}
+                    </div>
+                    </el-card>
+                    </router-link>
+                </el-col>
         </el-row>
         </div>
         <footer>
-            <Pagination @onPage="onPage"></Pagination>
+            <Pagination @onPage="onPage" :total="total" :key="total"></Pagination>
         </footer>
     </div>
 </template>
 
+
 <script setup>
 import Pagination from "../components/pagination.vue"
-import {reactive} from "vue"
-const src =
-  'https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg'
+import {reactive, onMounted, ref, watchEffect} from "vue"
+import { getVideos } from "../api/video"
+import { useRoute } from "vue-router"
 
+    const route = useRoute()
     let Query = reactive({
         page: 1,
-        limit: 6
+        selected: ""
     })
 
+    const videoList = ref(null)
+
+    const urlData = ref("http://api.757909.xyz/images/")
+    //const urlData = ref("http://192.168.1.10:12345/images/")
+    let total = ref(0)
+    const name = ref("")
+    let path= ref("")
+    name.value =  route.meta.title
+    path.value = route.path
+    //console.log(route.meta.title,route.path)
     const onPage = (val)=>{
+
         Query.page = val
-        console.log(val)
+
+        getVideosList()
+
     }
+
+const getVideosList = ()=>{
+     getVideos(Query).then(res=>{
+           if(res.code == 200){
+                total.value = res.count
+                //console.log(total.value)
+                videoList.value = res.data
+           // console.log(videoList.value)
+
+           }
+        })
+}
+onMounted(
+    ()=>{
+        getVideosList()
+    }
+)
+
+
+watchEffect(()=>{
+    //console.log(route.meta.title)
+    name.value = route.meta.title
+    Query.selected = route.meta.title
+    getVideosList()
+
+})
 </script>
 
 <style scoped>
@@ -73,8 +98,8 @@ const src =
    overflow: hidden;
    overflow-y: auto;
 }
-.el-row{
-    margin-bottom: 40px;
+.el-col{
+    margin-bottom: 20px;
 }
 .title{
     font-size: 32px;
@@ -82,14 +107,16 @@ const src =
 }
 .el-card{
     width: 100%;
-    height: 360px;
-    background-color: thistle;
+    height: 250px;
+    background-color: rgba(110, 109, 109, 0.2);
     padding: 0;
     padding: 0;
+    border: 1px solid #ccc;
+    color: #fff;
 }
 .el-image {
     width: 100%;
-    height: 300px;
+    height: 190px;
 }
 :deep(.el-card__body){
      padding: 0;
@@ -104,7 +131,7 @@ const src =
     display: flex;
 }
 .userInfo div span{
-    font-size: 14px;
+    font-size: 12px;
     align-items: center;
 }
 .userInfo .el-icon{
@@ -119,5 +146,8 @@ const src =
     text-overflow: ellipsis;
     white-space: nowrap;
     text-indent: 0.5em;
+}
+a{
+  text-decoration: none;
 }
 </style>
