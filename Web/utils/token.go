@@ -2,6 +2,7 @@ package utils
 
 import (
 	"net/http"
+	"regexp"
 
 	"github.com/gin-gonic/gin"
 )
@@ -12,12 +13,16 @@ func JWTAuth() gin.HandlerFunc {
 		//Get("Authorization")
 		url := c.Request.URL.Path
 		//fmt.Println(token)
-		if url == "/root/login" || url == "/root/addUser" {
+		var imgUrl = regexp.MustCompile(`/images`)
+		var videoUrl = regexp.MustCompile(`/videos`)
+		
+		if url == "/root/login" || url == "/root/addUser" || imgUrl.MatchString(url) || videoUrl.MatchString(url){
 			//c.Abort()
 			return
 		}
 		if token == ""{
 			c.JSON(http.StatusOK, gin.H{
+				//"msg": "当前未登录系统, 无权限访问子应用",
 				"msg": "请求未携带token, 无权限访问",
 				"code": 401,
 			})

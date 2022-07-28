@@ -17,6 +17,15 @@ func main() {
 	//加载路由
 	route.Root(app)
 	route.Video(app)
+	app.Static("/images","./files/images")
+	app.Static("/videos","./files/videos")
+	//route.Static(app)
+
+	// var num = regexp.MustCompile(`/LIVE/`)
+    // str := "/home/zf/LIVE/asdfa"
+    // if num.MatchString(str) {
+    //     fmt.Printf("%s", "xxx")
+    // }
 	//启动
 	tool.AppRun(app)
 }

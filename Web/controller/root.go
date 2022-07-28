@@ -32,7 +32,6 @@ func Login(c *gin.Context){
 	user := c.PostForm("user")
 	pass := c.PostForm("pass")
 	isRoot := IsUser(user)
-
 	if isRoot == 1 {
 		//fmt.Println("aaaa",isRoot,user,pass)
 		common.ExistUser(user, pass,c)
@@ -70,10 +69,11 @@ func Active(c *gin.Context){
 		})
 	}else{
 		c.JSON(http.StatusOK, gin.H{
-			"code":403,
+			"code":401,
 			//"name":user,
 			"msg":"此用户不存在！！！",
 	
 		})
 	}
 }
+
