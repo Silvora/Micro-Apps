@@ -2,6 +2,7 @@ package common
 
 import (
 	"Web/tool"
+	"fmt"
 	"log"
 	"net/http"
 	"path"
@@ -39,9 +40,11 @@ func UpDownloadImages(c *gin.Context) string{
 	id := uuid.New().String()
 	
 	imgUrl := "./files/images/" + id + imgExt
+	//imgUrl := "/usr/local/nginx/serve/files/images/" + id + imgExt
 
 	err = c.SaveUploadedFile(imgFile,imgUrl)
 	if err != nil {
+		fmt.Println(err)
 		return ""
 	}
 
@@ -63,9 +66,11 @@ func UpDownloadVideos(c *gin.Context) string{
 	id := uuid.New().String()
 	
 	videoUrl := "./files/videos/" + id + videoExt
+	//videoUrl := "/usr/local/nginx/serve/files/videos/" + id + videoExt
 
 	err = c.SaveUploadedFile(videoFile,videoUrl)
 	if err != nil {
+		fmt.Println(err)
 		return ""
 	}
 	return id + videoExt

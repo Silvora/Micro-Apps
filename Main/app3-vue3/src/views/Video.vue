@@ -63,15 +63,17 @@ let title = ref("")
 let context = ref("")
 let date = ref("")
 //const urlData = "http://192.168.1.10:12345/images/"
-const urlData = "http://api.757909.xyz/images/"
+const urlImg = "http://api.757909.xyz/images/"
+const urlVideo = "http://api.757909.xyz/videos/"
+
 onMounted(()=>{
    getVideo(route.params.id).then(res=>{
        console.log(res)
        let urlList = res.data.videoUrl.split(".")
        if(res.code == 200){
            let data = res.data
-           options.poster = urlData+data.imgUrl
-           options.sources[0].src = urlData+data.videoUrl
+           options.poster = urlImg+data.imgUrl
+           options.sources[0].src = urlVideo+data.videoUrl
            options.sources[0].type = "video/" + urlList[1]
             admin.value = data.admin
             title.value = data.name

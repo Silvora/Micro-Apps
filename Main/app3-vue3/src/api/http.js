@@ -6,7 +6,7 @@ const http = axios.create({
     //baseURL: "http://localhost:12345/video",
     baseURL: "http://api.757909.xyz/video",
     //baseURL: "http://192.168.1.10:12345/video",
-    timeout: 5000,
+    //timeout: 20000,
     validateStatus: function (status) {
         // eslint-disable-next-line default-case
         switch (status) {
@@ -48,7 +48,7 @@ http.interceptors.response.use(function (response) {
     if (response.data.code === 401 || response.data.code === 403) {
         //console.log(response.data)
         ElMessage.warning(response.data.msg);
-        if(response.data.code === 403){
+        if (response.data.code === 403) {
             window.open("http://www.757909.xyz")
         }
     }
