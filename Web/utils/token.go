@@ -15,8 +15,9 @@ func JWTAuth() gin.HandlerFunc {
 		//fmt.Println(token)
 		var imgUrl = regexp.MustCompile(`/images`)
 		var videoUrl = regexp.MustCompile(`/videos`)
+		var wsUrl = regexp.MustCompile(`/ws`)
 		
-		if url == "/root/login" || url == "/root/addUser" || imgUrl.MatchString(url) || videoUrl.MatchString(url){
+		if url == "/root/login" || url == "/root/addUser" || imgUrl.MatchString(url) || videoUrl.MatchString(url) || wsUrl.MatchString(url) {
 			//c.Abort()
 			return
 		}

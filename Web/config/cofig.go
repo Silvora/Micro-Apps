@@ -4,8 +4,8 @@ package config
 var (
 	AppName = "Web"
 	AppMode = "debug"
-	//AppHost = "192.168.1.10"
-	AppHost = "127.0.0.1"
+	AppHost = "192.168.1.10"
+	//AppHost = "127.0.0.1"
 	AppProt = "12345"
 )
 

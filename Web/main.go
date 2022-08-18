@@ -12,11 +12,16 @@ func main() {
 	tool.InitRedis()
 	//mysql
 	tool.InitMysql()
+	//mongo
+	tool.InitMongo()
 	//gin
 	app := tool.InitRouter()
 	//加载路由
 	route.Root(app)
 	route.Video(app)
+	//go controller.Manager.Start()
+
+	route.WebSocket(app)
 	app.Static("/images","./files/images")
 	app.Static("/videos","./files/videos")
 	//route.Static(app)

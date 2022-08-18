@@ -17,7 +17,7 @@ type Claims struct {
 
 func GenerateToken(name string) (string, error) {
 	nowTime := time.Now()                       //当前时间
-	expireTime := nowTime.Add(60*60*24 * time.Second) //有效时间
+	expireTime := nowTime.Add(60*60*24 * time.Minute) //有效时间
 
 	claims := &Claims{
 		name,
